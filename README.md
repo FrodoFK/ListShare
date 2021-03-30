@@ -1,3 +1,5 @@
+# /// This is the result of my cs50's Web Course Capstone Project ///
+
 # StudyLog
 
 StudyLog is a student-focused, mobile responsive, web app, based on the Django Backend and Javascript, CSS & HTML on the frontend, that allows you to keep track of your grades, 
