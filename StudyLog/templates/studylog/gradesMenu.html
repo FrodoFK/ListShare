@@ -1,0 +1,166 @@
+{% extends 'studylog/layout.html' %}
+{% load static %}
+
+{% block script %}
+    <script type="text/javascript" src="{% static 'studylog/js/gradesMenu.js' %}"></script>
+{% endblock %}
+
+{% block stylesheet %}
+    <link href="{% static 'studylog/css/gradesMenu.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    Grades
+{% endblock %}
+
+{% block body %}
+    <h1 class="mb-3 text-center">Welcome!</h1>
+    <div class="acontainer">
+        {% for key, data in user_data.items %}
+        <div class="sub_container">
+            <table>
+                <tr>
+                    <th class="subject_title" colspan="4">{{data.subject.title}}</th>
+                    <th hidden class="subjectpk" id="{{data.subject.pk}}">{{data.subject.pk}}</th>
+                    <td class="complete_button_space"><button class="btn editbtn">Edit this Subject</button></td>
+                </tr>
+                <tr>
+                    <td class="tt">Test Type</td>
+                    <td class="sc">Score</td>
+                    <td class="dt">Date</td>
+                    <td class="st">Status</td>
+                    <td class="complete_button_space"></td>
+                </tr>
+                {% for grade in data.grades %}
+                    <tr>
+                        <td class="testype">{{grade.grade.test_type}}</td>
+                        <td class="gradeobtained">{{grade.grade.obtained}}/<a class="gradetotal">{{grade.grade.total}}</a></td>
+                        <td class="date">{{grade.grade.date|date:"Y-m-d" }}</td>
+                        <td class="status">{{grade.grade.status|upper}}</td>
+                        <td class="complete_button_space">
+                            {% if grade.grade.status == 'pending' %}
+                                <button class="complete_button btn btn-primary border rounded">Mark as Done</button>
+                            {% else %}
+                                <button class="complete_button btn btn-danger border rounded">Unmark as Done</button>
+                            {% endif %}
+                        </td>
+                        <td class="gradepk" hidden>{{grade.grade.pk}}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Subject Score: </td>
+                    <td id="total_points"></td>
+                    <td class="complete_button_space"></td>
+
+                </tr>
+                <tr>
+                    
+                    <td colspan="3" class="lastline">This means you have approved:</td>
+                    <td class="lastline" id="total_percent"></td>
+                    <td class="delete_button_space"><button class="deletebtn btn btn-danger border rounded">Delete this subject</button></td>
+                </tr>
+            </table>
+        </div>
+        {% empty %}
+            <div>
+                <h1 class="mb-3 text-center">
+                    Oh! it looks like you don't have anything here yet!
+                </h1>
+                <button type="button" id="emptybtn" class="btn btn-primary" data-toggle="modal" data-target="#gradesmenu" >Tap here and let's start!</button>    
+            </div>
+        {% endfor %}
+    </div>
+    <button type="button" id="createbtn" class="btn btn-primary" data-toggle="modal" data-target="#gradesmenu" >Create New Subject</button>
+    {# GradesMenu Modal #}
+    <div class="modal fade" id="gradesmenu" tabindex="-1" aria-labelledby="gradesmenu" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="gradesmenu_title">New Subject Menu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="new_subject_form">
+                        <div class="form-group">
+                            <label for="subject_title" class="col-form-label">Subject's Title:</label>
+                            <input type="text" class="form-control" id="subject_title" name="subject_title" required>
+                        </div>
+                        <div class="form-group">
+                            <p>Grades:</p>
+                            <ul id="grade_list" name="grades">
+                                <li id="required_grade">
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <label for="grade_type" class="col-form-label">Type:</label>
+                                            <input type="text" class="form-control" id="grade_type" name="grade_type" placeholder="Essay #1" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="grade_obtained" class="col-form-label">Obtained:</label>
+                                            <input type="number" step="0.1" class="form-control" id="grade_obtained" name="grade_obtained" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="grade_total" class="col-form-label">Total:</label>
+                                            <input type="number" step="0.1" class="form-control" id="grade_total" name="grade_total" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="grade_date" class="col-form-label">Date:</label>
+                                            <input type="date" class="form-control" id="grade_date" name="grade_date" required>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-danger mb-2 mt-3" id ="delete_grade" onclick="deleteGradeModal(event.target)">Delete Grade</button>    
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="btn btn-primary mb-2 addgradebtn">Add Grade</div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary create-subject-btn">Create Subject</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# New Grade Menu #}
+    <div class="modal fade" id="newgrademenu" tabindex="-1" aria-labelledby="newgrademenu" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newgrademenu_title">New Grade Menu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="newgrade_form">
+                        <p>Insert New Grade's data:</p>
+                            <div class="form-group">
+                                <label for="newgrade_type" class="col-form-label">Type:</label>
+                                <input type="text" class="form-control" id="newgrade_type" name="grade_type" placeholder="Essay #1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newgrade_obtained" class="col-form-label">Score Obtained:</label>
+                                <input type="number" step="0.1" class="form-control" id="newgrade_obtained" name="grade_obtained" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newgrade_total" class="col-form-label">Total Grade's Score:</label>
+                                <input type="number" step="0.1" class="form-control" id="newgrade_total" name="grade_total" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newgrade_date" class="col-form-label">Date:</label>
+                                <input type="date" class="form-control" id="newgrade_date" name="grade_date" required>
+                            </div>
+                        <div class="modal-footer">
+                            <button type="submit" onclick="newGrade(event.target)" onsubmit="event.preventDefault()" class="btn btn-primary create-grade-btn">Create Grade</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>   
+
+{% endblock %}

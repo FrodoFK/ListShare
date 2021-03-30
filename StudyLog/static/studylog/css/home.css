@@ -1,0 +1,21 @@
+
+#daily, #weekly, #monthly, #yearly{
+    overflow: auto;
+    width: 100%;
+    height: 76vh;
+}
+
+#right-panel, #right {
+    width: 100%;
+    height: 76vh;
+    overflow: auto;
+
+}
+
+
+@keyframes completed {
+
+    from {text-decoration: none;}
+    to {text-decoration: line-through;}
+    
+}

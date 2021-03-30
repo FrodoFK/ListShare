@@ -1,0 +1,38 @@
+@media (max-width: 915px ) {
+    .left_content, .right_content {
+        display: block;
+        width: 100%;
+        word-wrap: break-word;
+    }
+}
+
+@media (min-width: 916px) {
+    .left_content, .right_content {
+        display: block;
+        width: 50%;
+        word-wrap: break-word;
+    }
+    
+    .textContainer {
+        text-align: center;
+        position: relative;
+    }
+
+    .right_content {
+        position: absolute;
+        top:0px;
+        right: 2px;
+    }
+}
+
+.list-group-item {
+    background-color: #e9ecef;
+}
+
+.left_content {
+    text-align: left;
+}
+.list-group {
+    max-height: 30vh;
+    overflow: auto;
+}

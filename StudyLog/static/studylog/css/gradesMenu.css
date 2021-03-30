@@ -1,0 +1,153 @@
+#emptybtn {
+    margin: auto;
+    display:block;
+}
+
+#delete_grade {
+    margin-left: auto;
+    display: block;
+}
+
+.acontainer {
+    padding: 10px;
+}
+
+.sub_container {
+    width: 45%;
+    display: inline-block;
+    margin-left: 3%;
+    margin-right: 1%;
+    margin-bottom: 2%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+table {
+    background-color: rgba(128, 185, 224, 0.37);
+    font-size: 100%;
+    width: 100%;
+    /*border: 1px solid black;*/
+}
+
+th {
+    border-bottom: 1px solid black;
+    padding: 2px;
+}
+
+td {
+    border-bottom: 1px solid black;
+    text-align: center;
+    padding: 1px;
+}
+
+.subject_title {
+    text-align: center;
+    font-size: 180%;
+    background-color: rgba(0, 104, 255, 0.9);
+}
+
+.tt, .sc, .dt, .st {
+    background-color: rgba(46, 190, 253, 0.9); 
+}
+
+@media (max-width: 650px) {
+    .sub_container {
+        width:100%;
+        display: block;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    table {
+        width: 100%;
+        padding: 30px;
+    }
+}
+
+@media (min-width: 651px) and (max-width: 900px) {
+    .sub_container {
+        width:100%;
+        display: block;
+        margin-left: 0px;
+        margin-right: 5%;
+    }
+
+    table {
+        width: 100%;
+        padding: 30px;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1150px) {
+    .sub_container {
+        width:90%;
+        display: block;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    table {
+        width: 100%;
+        padding: 30px;
+    }
+}
+
+@media (min-width: 1151px) {
+  .sub_container {
+    width: 48%;
+    display: inline-block;
+    margin-left: 0px;
+    margin-right: 18px;
+    }
+  table {
+    width: 100%;
+    padding: 20px;
+  }
+}
+
+.complete_button_space {
+    background-color: white;
+    border-bottom: 1px solid white;
+}
+
+.delete_button_space {
+    background-color: white;
+    border-bottom: 1px solid white;
+    padding: 10px;
+}
+
+.lastline {
+    border-bottom: 0px solid white;
+}
+
+#createbtn {
+    position:fixed;
+    top: 80px;
+    right:1%;
+}
+
+.editbtn {
+    background-color: rgba(0, 173, 255, 1);
+    margin: 10px;
+}
+
+@keyframes focus {
+    from {color: rgba(46, 190, 253, 0.9);}
+    to {color: rgb(0, 255, 255);}
+}
+
+.testype, .gradeobtained, .date, .status {
+    transition: all 0.5s;
+    padding: 2px;
+}
+
+.testype.hov, .gradeobtained.hov, .date.hov, .status.hov {
+    background-color: rgb(0, 255, 255);   
+}
+
+.testype.nohov, .gradeobtained.nohov, .date.nohov, .status.nohov {
+    background-color: rgba(46, 190, 253, 0.9));   
+}
+
+.date, .status {
+    
+}

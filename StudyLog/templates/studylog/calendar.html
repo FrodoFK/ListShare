@@ -1,0 +1,81 @@
+{% extends 'studylog/layout.html' %}
+{%load static %}
+
+{% block stylesheet %}
+    <link href="{% static 'studylog/css/calendar.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript" src="{% static 'studylog/js/calendar.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+    Calendar
+{% endblock %}
+
+{% block body %}
+    <h2>This year Calendar!</h2>
+    <div id="container">
+        {{calendar|safe}}    
+    </div>
+    <button class="btn btn-primary fixed" data-toggle="modal" data-target="#calendartask">Create Calendar Task!</button>
+
+    {# New Calendar Task modal #}
+    <div class="modal fade" id="calendartask" tabindex="-1" aria-labelledby="newcalendartask" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="calendartask_title">Create New Calendar Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="new_calendar_Task_form">
+                        <div class="form-group">
+                            <label for="content" class="col-form-label">Task's Content:</label>
+                            <textarea type="text" class="form-control" id="content" name="content" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-form-label">Task's Comment: (optional)</label>
+                            <textarea type="text" class="form-control" id="comment" name="comment"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="date" class="col-form-label">Select your task's date:</label>
+                            <input type="date" class="form-control" id="date" name="date" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary create-task-btn">Create Task</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+      </div>
+    </div>
+    <div id="calendar_tasks" hidden>
+        {% for task in calendar_tasks %}
+            <div class="task_container">
+                <p id="task_{{task.0.pk}}"></p>
+                <div class="task_content">{{task.0.task.content}}</div>
+                <div class="task_comment">{{task.0.task.comment}}</div>
+                <div class="task_month">{{task.2}}</div>
+                <div class="task_date">{{task.1}}</div>
+            </div>
+        {% endfor %}
+    </div>
+    {# Calendar Task Modal #}
+    <div class="modal fade" id="singlecalendartask" tabindex="-1" aria-labelledby="singlecalendartask" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="calendartask_title">Calendar Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>   
+{% endblock %}

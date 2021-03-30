@@ -1,0 +1,28 @@
+{% extends 'studylog/layout.html' %}
+{% load static %}
+
+{% block script %}
+    <script type="text/javascript" src="{% static 'studylog/js/dictionary.js' %}"></script>
+{% endblock %}
+
+{% block stylesheet %}
+    <link href="{% static 'studylog/css/dictionary.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    Dictionary
+{% endblock %}
+
+{% block body %}
+    <h1 class="mb-3 text-center">Search for a Word Here!</h1>
+    <div class="input-group input-group-lg">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="searcicon"><img src="{% static 'studylog/icons/search.svg' %}" alt="searchicon"></span>
+        </div>
+        <input type="text" id="searchbar" class="form-control" aria-label="Sizing example input" placeholder='Ex. Raccoon' aria-describedby="searchbar">
+        <div class="input-group-append">
+             <button class="btn btn-primary" id="searchBtn">Search</button>
+        </div>
+    </div>
+    <div class="result_container"></div>
+{% endblock %}
